@@ -1,0 +1,22 @@
+{
+  "name": "poli-backend",
+  "version": "1.0.0",
+  "description": "Poli backend for final project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "development": "nodemon index.js"
+  },
+  "keywords": [
+    "backend",
+    "nodejs",
+    "express"
+  ],
+  "author": "Sachin Rasangika",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
