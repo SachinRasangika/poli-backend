@@ -1,8 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Users = new Schema({
+const Clients = new Schema({
     fullName: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    nic: {
+        type: String,
+        required: true
+    },
+    phone: {
         type: String,
         required: true
     },
@@ -11,23 +23,14 @@ const Users = new Schema({
         required: true,
         unique: true
     },
-    contactNumber: {
+    job: {
         type: String,
-        required: true
+        required: false
     },
-    userType: {
+    workplace: {
         type: String,
-        required: true
-    },
-    userName: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
+        required: false
     }
 });
 
-module.exports = mongoose.model('users', Users);
+module.exports = mongoose.model('clients', Clients);
