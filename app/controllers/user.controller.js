@@ -84,7 +84,9 @@ exports.login = async (req, res) => {
         const payload = {
             user: {
                 userType: user.userType,
-                email: user.email
+                email: user.email,
+                id: user._id,
+                fullName: user.fullName
             }
         };
 
@@ -126,6 +128,33 @@ exports.GetAllUsers = async (req, res) => {
             success: true,
             data: users,
             message: "All users"
+        })
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Failed",
+            errors: [error.message]
+        })
+    }
+}
+
+exports.getCollectors = async (req, res) => {
+    try {
+        let us = await User.find({});
+
+        let filus = us.filter(i => {
+            if(i.userType.toLowerCase() == "collector") {
+                return true;
+            }
+            else {
+                return false;
+            }
+        })
+
+        res.status(200).send({
+            success: true,
+            data: filus,
+            message: "All Collectors"
         })
     } catch (error) {
         res.status(500).send({
