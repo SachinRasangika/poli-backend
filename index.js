@@ -28,10 +28,14 @@ app.get('/', async function (req, res) {
 //import routes
 const userRoutes = require('./app/routes/user.route');
 const clientRoutes = require('./app/routes/client.route');
+const loanRoutes = require('./app/routes/loan.route');
+const bondRoutes = require('./app/routes/bond.route');
 
 //use routes
 app.use('/api/users', userRoutes);
 app.use('/api/clients', clientRoutes);
+app.use('/api/loans', loanRoutes);
+app.use('/api/bonds', bondRoutes);
 
 const PORT = process.env.PORT || 4000;
 
