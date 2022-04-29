@@ -10,4 +10,6 @@ router.get('/getall', auth, userController.GetAllUsers);
 
 router.get('/get/collectors', auth, userController.getCollectors);
 
+router.patch('/password/reset', auth, userController.resetPassword);
+
 module.exports = router;

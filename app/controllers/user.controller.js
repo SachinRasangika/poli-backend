@@ -165,23 +165,45 @@ exports.getCollectors = async (req, res) => {
     }
 }
 
-// exports.resetPassword = async (req, res) => {
-//     try {
-//         const {email, reset, password} = req.body;
+exports.resetPassword = async (req, res) => {
+    try {
+        // console.log(req.user);
 
-//         if(reset) {
-//             let us = req.user;
+        let password = generateString(8);
 
+        const salt = await bcrypt.genSalt(10);
+        const hashedPwd = await bcrypt.hash(password, salt);
 
-//         }
-//     } catch (error) {
-//         res.status(500).send({
-//             success: false,
-//             message: "Failed",
-//             errors: [error.message]
-//         })
-//     }
-// }
+        let pwdUpdated = await User.findOneAndUpdate({_id: req?.user?.id}, {
+            password: hashedPwd
+        }); 
+
+        res.status(200).send({
+            success: true,
+            data: password,
+            message: "Password Changed!"
+        })
+
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Failed",
+            errors: [error.message]
+        })
+    }
+}
+
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+function generateString(length) {
+    let result = ' ';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
 
 exports.validate = (method) => {
     switch (method) {
