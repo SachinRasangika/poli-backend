@@ -167,20 +167,20 @@ exports.getCollectors = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
     try {
-        // console.log(req.user);
-
-        let password = generateString(8);
+        const { password } = req.body;
 
         const salt = await bcrypt.genSalt(10);
         const hashedPwd = await bcrypt.hash(password, salt);
 
-        let pwdUpdated = await User.findOneAndUpdate({_id: req?.user?.id}, {
-            password: hashedPwd
-        }); 
+        let updated = await User.findOne({_id: req?.user?.id});
+
+        updated.password = hashedPwd;
+
+        await updated.save();
 
         res.status(200).send({
             success: true,
-            data: password,
+            data: updated,
             message: "Password Changed!"
         })
 
