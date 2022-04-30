@@ -31,6 +31,7 @@ const clientRoutes = require('./app/routes/client.route');
 const loanRoutes = require('./app/routes/loan.route');
 const bondRoutes = require('./app/routes/bond.route');
 const empRoutes = require('./app/routes/employee.route');
+const collectionRoutes = require('./app/routes/collection.route');
 
 //use routes
 app.use('/api/users', userRoutes);
@@ -38,6 +39,7 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/loans', loanRoutes);
 app.use('/api/bonds', bondRoutes);
 app.use('/api/employees', empRoutes);
+app.use('/api/collections', collectionRoutes);
 
 const PORT = process.env.PORT || 4000;
 

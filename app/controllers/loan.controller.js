@@ -1,4 +1,5 @@
 const { check, validationResult } = require('express-validator');
+const collectionModel = require('../models/collection.model');
 const Loans = require('../models/loan.model');
 
 exports.createLoan = async (req, res) => {
@@ -90,9 +91,14 @@ exports.getOne = async (req, res) => {
             })
         }
 
+        let collections = await collectionModel.find({loanId: id});
+
         res.status(200).send({
             success: true,
-            data: loan,
+            data: { 
+                loan,
+                collections
+            },
             message: "Loan found"
         })
 
