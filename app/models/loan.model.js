@@ -55,8 +55,7 @@ const Loans = new Schema({
         default: false
     },
     bondId: {
-        type: String,
-        required: true
+        type: String
     }
 })
 

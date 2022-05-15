@@ -1,4 +1,6 @@
 const { check, validationResult } = require('express-validator');
+const bondModel = require('../models/bond.model');
+const clientModel = require('../models/client.model');
 const collectionModel = require('../models/collection.model');
 const Loans = require('../models/loan.model');
 
@@ -92,12 +94,20 @@ exports.getOne = async (req, res) => {
         }
 
         let collections = await collectionModel.find({loanId: id});
+        let client = await clientModel.findOne({_id: loan?.clientId});
+
+        let bond = null;
+        if(loan.bondId != "") {
+            bond = await bondModel.findOne({_id: loan?.bondId});
+        }
 
         res.status(200).send({
             success: true,
             data: { 
-                loan,
-                collections
+                loan: loan,
+                client: client,
+                bond: bond,
+                collections: collections
             },
             message: "Loan found"
         })
