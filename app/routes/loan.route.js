@@ -11,6 +11,8 @@ router.get('/getAll', auth, loanController.getAll);
 
 router.get('/get/:id', auth, loanController.getOne);
 
+router.get('/get/byclient/:id', loanController.findLoansByClientId);
+
 router.patch('/update/:id', auth, loanController.updateLoan);
 
 module.exports = router;

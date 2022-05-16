@@ -218,6 +218,26 @@ exports.loanDetailsForCustomer = async (req, res) => {
     }
 }
 
+exports.findLoansByClientId = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        let loan = await Loans.find({clientId: id});
+
+        res.status(200).send({
+            success: true,
+            data: loan,
+            message: "Loans for client"
+        })
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Failed",
+            errors: [error.message]
+        })
+    }
+}
+
 exports.validate = (method) => {
     switch (method) {
         case "create": {
