@@ -5,6 +5,8 @@ const loanController = require('../controllers/loan.controller');
 
 router.post('/create', auth, loanController.createLoan);
 
+router.post('/getInfo', loanController.loanDetailsForCustomer);
+
 router.get('/getAll', auth, loanController.getAll);
 
 router.get('/get/:id', auth, loanController.getOne);

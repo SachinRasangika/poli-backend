@@ -178,6 +178,46 @@ exports.deleteLoan = async (req, res) => {
     }
 }
 
+exports.loanDetailsForCustomer = async (req, res) => {
+    try {
+        const {email, nic} = req.body;
+
+        let client = await clientModel.findOne({email: email, nic: nic});
+
+        if(!client) {
+            return res.status(404).send({
+                success: false,
+                data: null,
+                message: "Client not found"
+            })
+        }
+
+        let loans = await Loans.find({clientId: client._id});
+
+        let loanDetails = [];
+        for (let i = 0; i < loans.length; i++) {
+            let collections = await collectionModel.find({loanId: loans[i]?._id});
+            // loans[i].collections = collections;
+            loanDetails.push({
+                loan: loans[i],
+                collections: collections
+            })
+        }
+
+        return res.status(200).send({
+            success: true,
+            data: loanDetails,
+            message: "Loan Details Found!"
+        })
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Failed",
+            errors: [error.message]
+        })
+    }
+}
+
 exports.validate = (method) => {
     switch (method) {
         case "create": {

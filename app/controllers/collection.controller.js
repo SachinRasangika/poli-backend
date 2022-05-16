@@ -2,6 +2,7 @@ const Collection = require("../models/collection.model");
 const { check, validationResult } = require('express-validator');
 const loanModel = require("../models/loan.model");
 const dayjs = require("dayjs");
+const userModel = require("../models/user.model");
 
 exports.create = async (req, res) => {
     try {

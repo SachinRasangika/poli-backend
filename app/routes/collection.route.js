@@ -8,7 +8,7 @@ router.post('/getrange', auth, collectionController.getbyDateRange);
 
 router.delete('/delete/:id', auth, collectionController.deleteCollection);
 
-router.delete('/byloan/:id', auth, collectionController.getByLoanid);
+router.get('/byloan/:id', collectionController.getByLoanid);
 
 router.get('/get/:id', auth, collectionController.getOne);
 
